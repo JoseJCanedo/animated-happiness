@@ -34,9 +34,9 @@ public class NasaServiceImpl implements NasaService {
 
     @Override
     public NasaApiResponse[] getDateRangeNasaMulti(String thumbs, String end_date, String start_date) {
-        String params = "&start_date=" + start_date;
+        String params = "&start_date=" + start_date + (thumbs != null ? "&thumbs=" + thumbs : "");
         if(end_date != null){
-            params += "&end_date=" + end_date + (thumbs != null ? "&thumbs=" + thumbs : "");
+            params += "&end_date=" + end_date ;
         }
         return getData(params);
     }
