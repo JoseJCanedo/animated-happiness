@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class NasaServiceImpl implements NasaService {
 
-    private String NASA_API = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
+    private final String NASA_API = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
 
     @Override
     public NasaApiResponse getNasaSingle(String date, String thumbs) {
@@ -36,7 +36,7 @@ public class NasaServiceImpl implements NasaService {
     public NasaApiResponse[] getDateRangeNasaMulti(String thumbs, String end_date, String start_date) {
         String params = "&start_date=" + start_date + (thumbs != null ? "&thumbs=" + thumbs : "");
         if(end_date != null){
-            params += "&end_date=" + end_date ;
+            params += "&end_date=" + end_date;
         }
         return getData(params);
     }
