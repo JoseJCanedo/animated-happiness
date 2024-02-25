@@ -20,7 +20,7 @@ public class NasaApiController {
     }
 
     @GetMapping("/numbernasaimage")
-    public NasaApiResponse[] getNumNasaMulti(@RequestParam(required = false) String count,
+    public NasaApiResponse[] getNumNasaMulti(@RequestParam() String count,
                                          @RequestParam(required = false) String thumbs){
         return nasaService.getNumNasaMulti(count, thumbs);
     }
@@ -28,7 +28,7 @@ public class NasaApiController {
     @GetMapping("/multidatenasa")
     public NasaApiResponse[] getDateRangeNasaMulti(@RequestParam(required = false) String thumbs,
                                           @RequestParam(required = false) String end_date,
-                                          @RequestParam(required = false) String start_date){
+                                          @RequestParam() String start_date){
         return nasaService.getDateRangeNasaMulti(thumbs, end_date, start_date);
     }
 

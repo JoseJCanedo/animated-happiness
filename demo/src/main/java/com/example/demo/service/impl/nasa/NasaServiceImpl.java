@@ -9,33 +9,41 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class NasaServiceImpl implements NasaService {
 
-    @Override
-    public NasaApiResponse getNasaSingle(String count, String thumbs) {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY", NasaApiResponse.class);
-    }
+    private String NASA_API = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
 
     @Override
-    public NasaApiResponse[] getNasaMulti(String count, String thumbs, String endDate, String startDate, String date) {
+    public NasaApiResponse getNasaSingle(String date, String thumbs) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<NasaApiResponse[]> resp = restTemplate.getForEntity("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=" + count, NasaApiResponse[].class);
-        return resp.getBody();
+        String params = "";
+        if(date != null && thumbs != null){
+            params = "&date=" + date + "&thumbs=" + thumbs;
+        } else if(date != null){
+            params = "&date=" + date;
+        } else if(thumbs != null){
+            params = "&thumbs=" + thumbs;
+        }
+        return restTemplate.getForObject(NASA_API + params, NasaApiResponse.class);
     }
 
     @Override
     public NasaApiResponse[] getNumNasaMulti(String count, String thumbs) {
-        return null;
+        String params = "&count=" + count + (thumbs != null ? "&thumbs=" + thumbs : "");
+        return getData(params);
     }
+
 
     @Override
-    public NasaApiResponse[] getDateRangeNasaMulti(String thumbs, String endDate, String startDate) {
-        return new NasaApiResponse[0];
+    public NasaApiResponse[] getDateRangeNasaMulti(String thumbs, String end_date, String start_date) {
+        String params = "&start_date=" + start_date;
+        if(end_date != null){
+            params += "&end_date=" + end_date + (thumbs != null ? "&thumbs=" + thumbs : "");
+        }
+        return getData(params);
     }
 
-    private NasaApiResponse[] getData (String count, String thumbs, String endDate, String startDate, String date){
-        String uri = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
+    private NasaApiResponse[] getData (String params){
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<NasaApiResponse[]> resp = restTemplate.getForEntity(uri, NasaApiResponse[].class);
+        ResponseEntity<NasaApiResponse[]> resp = restTemplate.getForEntity(NASA_API + params, NasaApiResponse[].class);
         return resp.getBody();
     }
 
