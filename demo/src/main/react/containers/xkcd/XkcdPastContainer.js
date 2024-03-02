@@ -3,7 +3,7 @@ import Nav from '../../components/nav/Nav'
 import axios from 'axios';
 
 
-const AppContainer = (props) => {
+const XkcdPastContainer = (props) => {
     const {name, color, object, count, increment} = props
     const [count2, setCount2] = useState(0);
     const [xkcdPast, setXkcdPast] = useState({});
@@ -25,7 +25,7 @@ const AppContainer = (props) => {
 
     return(
         <>
-            <Nav />
+
             <div>
                <button type="button" className="btn btn-primary" onClick={() => fetchPastComic()}>Get Random Comic</button>
             </div>
@@ -49,4 +49,4 @@ const AppContainer = (props) => {
     )
 }
 
-export default AppContainer
+export default XkcdPastContainer

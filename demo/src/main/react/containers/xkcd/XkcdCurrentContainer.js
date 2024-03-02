@@ -3,7 +3,7 @@ import Nav from '../../components/nav/Nav'
 import axios from 'axios';
 
 
-const AppContainer = () => {
+const XkcdCurrentContainer = () => {
     const [xkcdCurrent, setXkcdCurrent] = useState({});
 
     useEffect(()=>{
@@ -19,7 +19,7 @@ const AppContainer = () => {
 
     return(
         <>
-            <Nav />
+
             <div>
                 <h1>{xkcdCurrent.title}</h1>
             </div>
@@ -35,4 +35,4 @@ const AppContainer = () => {
     )
 }
 
-export default AppContainer
+export default XkcdCurrentContainer
